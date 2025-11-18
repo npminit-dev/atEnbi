@@ -9,6 +9,7 @@ import PlanSelect from "./PlanSelect";
 import BottomButtons from "./BottomButtons";
 import { useNavigate } from "react-router";
 import riverImage from '../../assets/image/river-and-boats.webp';
+import JSONPretty from "react-json-pretty";
 
 const initialState: FormState = {
   countryName: 'Argentina',
@@ -65,38 +66,50 @@ const ESimForm = () => {
     <>
       {
         pricingData !== null ?
-          <div className="flex items-center justify-center gap-12 h-full my-20">
-            <Image src={riverImage} alt="decorative image" />
-            <form onSubmit={handleSubmit} className="relative flex flex-col min-h-[680px] max-w-[587px]">
-              <FormHeading
-                title="Select eSIM plan"
-                caption="Get an eSIM for Japan and enjoy reliable and affordable internet access on your trip."
+          <>
+            <div className="flex items-center justify-center gap-12 h-full my-20">
+              <Image src={riverImage} alt="decorative image" />
+              <form onSubmit={handleSubmit} className="relative flex flex-col min-h-[680px] max-w-[587px]">
+                <FormHeading
+                  title="Select eSIM plan"
+                  caption="Get an eSIM for Japan and enjoy reliable and affordable internet access on your trip."
+                />
+                <CountrySelect
+                  countryName={state.countryName}
+                  countryCode={state.countryCode}
+                  dispatch={dispatch}
+                  countries={pricingData}
+                />
+                <GBSelect
+                  countryGBS={state.countryName
+                    ? Object.keys(pricingData[state.countryName].plansByGB)
+                    : []}
+                  dispatch={dispatch}
+                  state={state}
+                />
+                <PlanSelect
+                  plans={(state.countryName && state.gb)
+                    ? pricingData[state.countryName].plansByGB[state.gb]
+                    : []}
+                  dispatch={dispatch}
+                  state={state}
+                />
+                <BottomButtons
+                  state={state}
+                />
+              </form>
+            </div>
+            <div className="flex flex-col items-center justify-center">
+              <h3 className="text-main-blue font-onest mb-4">Form Status</h3>
+              <JSONPretty
+                className="text-light-blue"
+                data={{
+                  ...state,
+                  gb: (state as FormState).gb === '10.00 TB' ? 'Unlimited' : state.gb
+                }}
               />
-              <CountrySelect
-                countryName={state.countryName}
-                countryCode={state.countryCode}
-                dispatch={dispatch}
-                countries={pricingData}
-              />
-              <GBSelect
-                countryGBS={state.countryName
-                  ? Object.keys(pricingData[state.countryName].plansByGB)
-                  : []}
-                dispatch={dispatch}
-                state={state}
-              />
-              <PlanSelect
-                plans={(state.countryName && state.gb)
-                  ? pricingData[state.countryName].plansByGB[state.gb]
-                  : []}
-                dispatch={dispatch}
-                state={state}
-              />
-              <BottomButtons
-                state={state}
-              />
-            </form>
-          </div>
+            </div>
+          </>
           : <></>
       }
     </>

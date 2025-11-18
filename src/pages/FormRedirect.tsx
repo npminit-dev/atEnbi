@@ -7,7 +7,7 @@ const FormRedirect = () => {
   const { state } = useLocation()
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center">
+    <div className="h-screen w-screen bg-bg-light flex flex-col items-center justify-center">
       <h1 className='font-onest text-main-blue font-semibold my-10'>Data received from {'<Form/>'} in root path</h1>
       <JSONPretty
         data={{
