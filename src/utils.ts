@@ -1,0 +1,1 @@
+export const GBs = ['1 GB', '5 GB', '10 GB', '20 GB', '10.00 TB']
