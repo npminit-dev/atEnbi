@@ -67,9 +67,9 @@ const ESimForm = () => {
       {
         pricingData !== null ?
           <>
-            <div className="flex items-center justify-center gap-12 h-full my-20">
+            <div className="flex items-start justify-center gap-12 h-full my-20">
               <Image src={riverImage} alt="decorative image" />
-              <form onSubmit={handleSubmit} className="relative flex flex-col min-h-[680px] max-w-[587px]">
+              <form onSubmit={handleSubmit} className="relative flex flex-col min-h-[680px] max-w-[587px] mt-4">
                 <FormHeading
                   title="Select eSIM plan"
                   caption="Get an eSIM for Japan and enjoy reliable and affordable internet access on your trip."
